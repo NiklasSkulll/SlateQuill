@@ -5,6 +5,9 @@ This module provides the base classes and utilities for the SlateQuill plugin sy
 allowing extensible support for different input formats.
 """
 
-from .base import BaseConverter
-
-__all__ = ["BaseConverter"]
+try:
+    from .base import BaseConverter
+    __all__ = ["BaseConverter"]
+except ImportError:
+    # During development, dependencies might not be installed yet
+    __all__ = []

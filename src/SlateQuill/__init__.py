@@ -13,16 +13,20 @@ __version__ = "0.1.0"
 __author__ = "Niklas Skulll"
 __license__ = "MIT"
 
-# Public API exports
-from .core import convert_file
-from .config import Config, ConversionConfig
-from .exceptions import SlateQuillError, ConversionError, SecurityError
-
-__all__ = [
-    "convert_file",
-    "Config", 
-    "ConversionConfig",
-    "SlateQuillError",
-    "ConversionError", 
-    "SecurityError",
-]
+# Public API exports - using try/except to handle missing dependencies during development
+try:
+    from .core import convert_file
+    from .config import Config, ConversionConfig
+    from .exceptions import SlateQuillError, ConversionError, SecurityError
+    
+    __all__ = [
+        "convert_file",
+        "Config", 
+        "ConversionConfig",
+        "SlateQuillError",
+        "ConversionError", 
+        "SecurityError",
+    ]
+except ImportError:
+    # During development, dependencies might not be installed yet
+    __all__ = []
