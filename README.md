@@ -11,12 +11,10 @@
 
 **A robust Python CLI tool for converting HTML documents to clean, standards-compliant Markdown**
 
-[![PyPI version](https://badge.fury.io/py/SlateQuill.svg)](https://badge.fury.io/py/SlateQuill)
-[![Python Support](https://img.shields.io/pypi/pyversions/SlateQuill.svg)](https://pypi.org/project/SlateQuill/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Tests](https://github.com/NiklasSkulll/SlateQuill/workflows/Tests/badge.svg)](https://github.com/NiklasSkulll/SlateQuill/actions)
-[![Coverage](https://codecov.io/gh/NiklasSkulll/SlateQuill/branch/main/graph/badge.svg)](https://codecov.io/gh/NiklasSkulll/SlateQuill)
+[![Python Support](https://img.shields.io/badge/Python-3.10%2B-blue)](https://www.python.org/downloads/)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Development Status](https://img.shields.io/badge/status-in%20development-orange)](https://github.com/NiklasSkulll/SlateQuill)
 
 [Installation](#installation) • [Quick Start](#quick-start) • [Features](#features) • [Documentation](#documentation) • [Contributing](#contributing)
 
@@ -58,12 +56,6 @@ pip install SlateQuill
 pip install git+https://github.com/NiklasSkulll/SlateQuill.git
 ```
 
-### Docker
-
-```bash
-docker run -v $(pwd):/workspace SlateQuill:latest convert input.html -o output.md
-```
-
 ### Other Package Managers
 
 ```bash
@@ -72,6 +64,14 @@ brew install SlateQuill
 
 # Conda
 conda install -c conda-forge SlateQuill
+```
+
+### Docker (Optional)
+
+For users who prefer containerized environments or want to avoid Python installation:
+
+```bash
+docker run -v $(pwd):/workspace SlateQuill:latest convert input.html -o output.md
 ```
 
 ---
@@ -454,7 +454,7 @@ poetry run pytest tests/integration/  # Integration tests only
   1. Validate tag format and changelog
   2. Build and test package
   3. Publish to PyPI (trusted publishing)
-  4. Build Docker image
+  4. Build Docker image (optional)
   5. Generate GitHub release
   6. Deploy documentation
 
@@ -646,7 +646,7 @@ To report security vulnerabilities, please see our [Security Policy](SECURITY.md
 - 📋 First official plugin (PDF support)
 - 📋 Plugin marketplace
 - 📋 Performance optimizations
-- 📋 Docker image
+- 📋 Docker image (optional deployment method)
 
 ### v1.0.0 - Production Ready
 - 📋 Stable API
