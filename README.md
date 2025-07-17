@@ -26,7 +26,7 @@
 
 # SlateQuill
 
-## 🚀 Overview
+## Overview
 
 SlateQuill is a Python-based CLI tool that reliably transforms HTML documents into clean, standards-compliant Markdown with full support for:
 
@@ -46,7 +46,7 @@ SlateQuill is a Python-based CLI tool that reliably transforms HTML documents in
 
 ---
 
-## 📦 Installation
+## Installation
 
 ### Development Version (Current)
 
@@ -102,7 +102,7 @@ docker run -v $(pwd):/workspace SlateQuill:latest convert input.html -o output.m
 
 ---
 
-## 🏃 Quick Start
+## Quick Start
 
 ### Basic Usage
 
@@ -143,7 +143,7 @@ await convert_file(Path("input.html"), Path("output.md"), config)
 
 ---
 
-## ✨ Features
+## Features
 
 ### Core Capabilities
 
@@ -184,7 +184,7 @@ await convert_file(Path("input.html"), Path("output.md"), config)
 
 ---
 
-## 🛠 Configuration
+## Configuration
 
 Create a `.slateQuill.toml` file in your project root:
 
@@ -207,7 +207,7 @@ level = "INFO"
 
 ---
 
-## 📚 Documentation
+## Documentation
 
 - **[User Guide](https://SlateQuill.readthedocs.io/en/latest/user-guide/)**: Installation, configuration, and usage
 - **[API Reference](https://SlateQuill.readthedocs.io/en/latest/api/)**: Complete API documentation
@@ -216,7 +216,7 @@ level = "INFO"
 
 ---
 
-## 🔌 Plugin System
+## Plugin System
 
 SlateQuill includes a plugin architecture for future extensibility:
 
@@ -249,7 +249,7 @@ class CustomConverter(BaseConverter):
 
 ---
 
-## 🏗 Technical Architecture
+## Technical Architecture
 
 ### Core Components
 
@@ -341,7 +341,7 @@ class Config(BaseModel):
 
 ---
 
-## 🛠 Development Setup
+## Development Setup
 
 ### Prerequisites
 
@@ -391,7 +391,7 @@ poetry run safety check
 
 ---
 
-## 🧪 Testing Strategy
+## Testing Strategy
 
 ### Current Test Setup
 
@@ -420,7 +420,7 @@ poetry run pytest --cov=SlateQuill
 
 ---
 
-## 🔒 Security Implementation
+## Security Implementation
 
 ### Input Validation
 
@@ -476,7 +476,7 @@ poetry run pytest --cov=SlateQuill
 
 ---
 
-## 📋 Complete Configuration
+## Complete Configuration
 
 ### Full `.slateQuill.toml` Example
 
@@ -519,7 +519,7 @@ cache_ttl = 3600                    # seconds
 
 ---
 
-## 📦 Dependencies
+## Dependencies
 
 ### Core Dependencies
 
@@ -568,7 +568,7 @@ mkdocstrings = {extras = ["python"], version = "^0.23.0"}
 
 ---
 
-## 🧪 Development
+## Development
 
 ### Prerequisites
 
@@ -626,7 +626,7 @@ SlateQuill/
 
 ---
 
-## 📊 Performance Benchmarks
+## Performance Benchmarks
 
 *Performance benchmarks will be added as the project matures.*
 
@@ -640,7 +640,7 @@ Current status:
 
 ---
 
-## 🔒 Security
+## Security
 
 SlateQuill takes security seriously:
 
@@ -653,7 +653,7 @@ To report security vulnerabilities, please see our [Security Policy](SECURITY.md
 
 ---
 
-## 🗺 Roadmap
+## Roadmap
 
 ### v0.1.0 (Current) - Core Foundation
 - ✅ Basic HTML to Markdown conversion
@@ -693,7 +693,7 @@ To report security vulnerabilities, please see our [Security Policy](SECURITY.md
 
 ---
 
-## 🏷 Versioning
+## Versioning
 
 SlateQuill follows [Semantic Versioning](https://semver.org/) (`MAJOR.MINOR.PATCH`):
 
@@ -705,7 +705,7 @@ Releases are automated through GitHub Actions with conventional commits generati
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details.
 
@@ -726,13 +726,13 @@ We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) f
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - [BeautifulSoup](https://www.crummy.com/software/BeautifulSoup/) for HTML parsing
 - [markdownify](https://github.com/matthewwithanm/python-markdownify) for base conversion
