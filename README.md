@@ -84,16 +84,16 @@ docker run -v $(pwd):/workspace SlateQuill:latest convert input.html -o output.m
 
 ```bash
 # Convert HTML file to Markdown
-SlateQuill convert input.html -o output.md
+SlateQuill input.html output.md
 
-# Convert with custom configuration
-SlateQuill convert input.html -o output.md --config .slateQuill.toml
+# Convert with auto-generated output name
+SlateQuill input.html
 
-# Batch processing
-SlateQuill batch-convert *.html --output-dir ./markdown/
+# Show version
+SlateQuill --version
 
-# Different input formats (via plugins)
-SlateQuill convert document.pdf -o output.md
+# Show help
+SlateQuill --help
 ```
 
 ### Python API
@@ -101,21 +101,20 @@ SlateQuill convert document.pdf -o output.md
 ```python
 from SlateQuill import convert_file
 from pathlib import Path
+import asyncio
 
 # Simple conversion
-convert_file(Path("input.html"), Path("output.md"))
+async def convert():
+    await convert_file(Path("input.html"), Path("output.md"))
+
+# Run the conversion
+asyncio.run(convert())
 
 # With custom configuration
-from SlateQuill.config import Config, ConversionConfig
+from SlateQuill.config import Config, ConversionConfig, load_config
 
-config = Config(
-    conversion=ConversionConfig(
-        markdown_flavor="github",
-        preserve_html=False,
-        line_length=80
-    )
-)
-convert_file(Path("input.html"), Path("output.md"), config)
+config = load_config()  # Load from .slateQuill.toml or use defaults
+await convert_file(Path("input.html"), Path("output.md"), config)
 ```
 
 ---
@@ -125,11 +124,21 @@ convert_file(Path("input.html"), Path("output.md"), config)
 ### Core Capabilities
 
 - **HTML to Markdown Conversion**: Clean, standards-compliant output
-- **Multiple Markdown Flavors**: GitHub, CommonMark, and more
-- **Rich HTML Support**: Tables, lists, footnotes, code blocks
-- **Async Processing**: Handle large files efficiently
-- **Batch Operations**: Convert multiple files at once
-- **Configuration System**: Flexible TOML-based configuration
+- **Security-First**: Input validation and HTML sanitization
+- **Async Processing**: Efficient handling of files
+- **Configuration System**: TOML-based configuration
+- **Plugin Architecture**: Extensible converter system (planned)
+
+### Current Status (v0.1.0)
+
+- ✅ Basic HTML to Markdown conversion
+- ✅ Configuration system with TOML support
+- ✅ Security validation and HTML sanitization
+- ✅ Simple CLI interface
+- ✅ Async core functionality
+- 🚧 Advanced CLI features (planned)
+- 🚧 Batch processing (planned)
+- 🚧 Multiple output formats (planned)
 
 ### Security & Reliability
 
@@ -141,13 +150,13 @@ convert_file(Path("input.html"), Path("output.md"), config)
 
 ### Performance
 
-- **Streaming Support**: Memory-efficient processing
-- **Parallel Processing**: Concurrent file conversion
-- **Caching**: Result caching for repeated operations
-- **Benchmarked Performance**: 
-  - Small files (<1MB): <100ms
-  - Medium files (1-10MB): <1s
-  - Large files (10-100MB): <10s
+- **Streaming Support**: Memory-efficient processing (planned)
+- **Async I/O**: Non-blocking file operations
+- **Memory Management**: Efficient processing of documents
+- **Current Performance**: 
+  - Small files (<1MB): Fast conversion
+  - Medium files (1-10MB): Efficient processing
+  - Large files (>10MB): Planned optimizations
 
 ---
 
@@ -158,25 +167,19 @@ Create a `.slateQuill.toml` file in your project root:
 ```toml
 [conversion]
 markdown_flavor = "github"
-line_length = 80
-heading_style = "atx"
 preserve_html = false
 strip_comments = true
 
 [security]
-max_file_size = 104_857_600  # 100MB
+max_file_size = 104857600  # 100MB
 sanitize_html = true
-allow_external_links = true
+validate_encoding = true
 
-[performance]
-use_streaming = true
-max_workers = 4
-cache_results = true
-
-[plugins]
-pdf.ocr_enabled = true
-pdf.language = "en"
+[logging]
+level = "INFO"
 ```
+
+*Note: Advanced configuration options are planned for future versions.*
 
 ---
 
@@ -191,15 +194,11 @@ pdf.language = "en"
 
 ## 🔌 Plugin System
 
-SlateQuill supports extensible plugins for different input formats:
+SlateQuill includes a plugin architecture for future extensibility:
 
-### Available Plugins
+### Plugin Architecture (Planned)
 
-- **SlateQuill-pdf**: PDF to Markdown conversion
-- **SlateQuill-docx**: Microsoft Word document conversion
-- **SlateQuill-epub**: EPUB ebook conversion
-
-### Creating Custom Plugins
+The plugin system is designed to support different input formats in future versions:
 
 ```python
 from SlateQuill.plugins.base import BaseConverter
@@ -221,6 +220,8 @@ class CustomConverter(BaseConverter):
     def supported_formats(self) -> list[str]:
         return ['.custom']
 ```
+
+*Note: Plugin system is currently in development. Current version focuses on HTML to Markdown conversion.*
 
 ---
 
@@ -368,45 +369,30 @@ poetry run safety check
 
 ## 🧪 Testing Strategy
 
-### Test Organization
+### Current Test Setup
 
 ```
 tests/
-├── unit/                     # Fast, isolated tests (95%+ coverage)
-│   ├── test_html2md.py      # Core conversion logic
-│   ├── test_config.py       # Configuration handling
-│   ├── test_security.py     # Security validation
-│   └── test_plugins.py      # Plugin system
-├── integration/             # Component interaction tests
-│   ├── test_cli.py          # CLI interface
-│   ├── test_end_to_end.py   # Full workflow
-│   └── test_plugin_loading.py
-├── performance/             # Performance benchmarks
-│   ├── test_large_files.py  # Memory and speed tests
-│   └── test_benchmarks.py   # Regression testing
-└── fixtures/                # Test data
-    ├── html/                # Input samples
-    ├── expected_md/         # Expected outputs
-    ├── malformed/           # Edge cases
-    └── large_files/         # Performance data
+├── fixtures/                # Test data
+│   ├── test_input.html      # Sample HTML input
+│   └── test_output.md       # Expected output
+└── (unit tests planned)     # Test modules for v0.2.0
 ```
 
 ### Running Tests
 
 ```bash
-# Run all tests
+# Install development dependencies
+poetry install
+
+# Run tests (when implemented)
 poetry run pytest
 
-# With coverage
-poetry run pytest --cov=SlateQuill --cov-report=html
-
-# Performance tests
-poetry run pytest tests/performance/ --benchmark-only
-
-# Run specific test types
-poetry run pytest tests/unit/      # Unit tests only
-poetry run pytest tests/integration/  # Integration tests only
+# Run with coverage (planned)
+poetry run pytest --cov=SlateQuill
 ```
+
+*Comprehensive testing suite will be implemented in v0.2.0*
 
 ---
 
@@ -519,11 +505,14 @@ python = "^3.10"
 beautifulsoup4 = "^4.12.0"
 lxml = "^4.9.0"
 markdownify = "^0.11.0"
-typer = {extras = ["all"], version = "^0.9.0"}
+typer = "^0.9.0"
 rich = "^13.0.0"
 pydantic = "^2.0.0"
 aiofiles = "^23.0.0"
 click-completion = "^0.5.0"
+bleach = "^6.0.0"
+tomli = "^2.0.0"
+tomli-w = "^1.0.0"
 ```
 
 ### Development Dependencies
@@ -588,32 +577,42 @@ poetry run pytest --cov=SlateQuill
 ```
 SlateQuill/
 ├── src/SlateQuill/          # Main package
-│   ├── cli.py               # CLI interface
+│   ├── __init__.py          # Package initialization
+│   ├── simple_cli.py        # Simple CLI interface
+│   ├── cli.py               # Advanced CLI (planned)
 │   ├── core.py              # Core conversion logic
 │   ├── html2md.py           # HTML to Markdown converter
 │   ├── config.py            # Configuration management
 │   ├── security.py          # Security validation
+│   ├── exceptions.py        # Exception hierarchy
 │   └── plugins/             # Plugin system
+│       └── base.py          # Base plugin class
 ├── tests/                   # Test suite
-│   ├── unit/                # Unit tests
-│   ├── integration/         # Integration tests
-│   └── performance/         # Performance tests
-└── docs/                    # Documentation
+│   ├── fixtures/            # Test data
+│   ├── test_input.html      # Sample input
+│   └── test_output.md       # Sample output
+├── docs/                    # Documentation (planned)
+├── pyproject.toml          # Poetry configuration
+├── .gitignore              # Git ignore rules
+├── .pre-commit-config.yaml # Pre-commit hooks
+├── CONTRIBUTING.md         # Contributing guidelines
+├── SECURITY.md             # Security policy
+└── CHANGELOG.md            # Version history
 ```
 
 ---
 
 ## 📊 Performance Benchmarks
 
-| File Size | Conversion Time | Memory Usage |
-|-----------|----------------|--------------|
-| 1KB       | 2ms            | 5MB          |
-| 100KB     | 15ms           | 8MB          |
-| 1MB       | 85ms           | 12MB         |
-| 10MB      | 650ms          | 25MB         |
-| 100MB     | 8.5s           | 180MB        |
+*Performance benchmarks will be added as the project matures.*
 
-*Benchmarks run on Intel i7-10700K, 32GB RAM, Python 3.11*
+Current status:
+- Basic HTML to Markdown conversion: Working
+- Small files (<1MB): Fast conversion
+- Async processing: Implemented
+- Memory efficiency: Under development
+
+*Detailed benchmarks will be provided in v0.2.0*
 
 ---
 
@@ -634,20 +633,25 @@ To report security vulnerabilities, please see our [Security Policy](SECURITY.md
 
 ### v0.1.0 (Current) - Core Foundation
 - ✅ Basic HTML to Markdown conversion
-- ✅ Configuration system
-- ✅ Security validation
-- ✅ Test suite with 95%+ coverage
+- ✅ Configuration system with TOML support
+- ✅ Security validation and HTML sanitization
+- ✅ Simple CLI interface
+- ✅ Async core functionality
+- ✅ Exception hierarchy
+- ✅ Plugin base architecture
 
-### v0.2.0 - Enhanced Features
-- 🚧 Advanced HTML support (tables, footnotes)
-- 🚧 Plugin API stabilization
-- 🚧 Async/streaming support
-- 🚧 Batch processing
+### v0.2.0 - Enhanced CLI & Features
+- 🚧 Advanced CLI with Typer framework
+- 🚧 Batch processing support
+- 🚧 Multiple output formats
+- 🚧 Configuration validation
+- 🚧 Comprehensive test suite
 
-### v0.3.0 - Extensibility
+### v0.3.0 - Performance & Plugins
+- 📋 Streaming support for large files
 - 📋 First official plugin (PDF support)
-- 📋 Plugin marketplace
 - 📋 Performance optimizations
+- 📋 Memory usage improvements
 - 📋 Docker image (optional deployment method)
 
 ### v1.0.0 - Production Ready

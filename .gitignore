@@ -263,3 +263,22 @@ tests/fixtures/large_files/*.md
 secrets.txt
 *.key
 *.pem
+.secrets/
+
+# Development artifacts
+.coverage.*
+htmlcov/
+*.prof
+*.lprof
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# pipenv
+Pipfile.lock
+
+# PEP 582
+__pypackages__/
