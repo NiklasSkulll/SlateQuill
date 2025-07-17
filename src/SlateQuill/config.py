@@ -102,7 +102,10 @@ class Config(BaseModel):
     @classmethod
     def from_file(cls, config_path: Path) -> "Config":
         """Load configuration from a TOML file."""
-        import tomllib
+        try:
+            import tomllib
+        except ImportError:
+            import tomli as tomllib
         
         try:
             with open(config_path, "rb") as f:
@@ -115,7 +118,10 @@ class Config(BaseModel):
     
     def to_file(self, config_path: Path) -> None:
         """Save configuration to a TOML file."""
-        import tomli_w
+        try:
+            import tomli_w
+        except ImportError:
+            raise ImportError("tomli_w is required for writing TOML files")
         
         data = self.dict()
         with open(config_path, "wb") as f:

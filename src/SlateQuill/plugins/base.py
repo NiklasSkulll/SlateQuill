@@ -62,7 +62,17 @@ class HTMLConverter(BaseConverter):
         from ..html2md import html_to_markdown
         
         html_content = content.decode('utf-8')
-        return await html_to_markdown(html_content, options or {})
+        
+        # Handle both config object and options dict
+        if options is not None:
+            if hasattr(options, 'preserve_html'):
+                # It's a config object
+                return await html_to_markdown(html_content, options)
+            else:
+                # It's a dict of options
+                return await html_to_markdown(html_content, options=options)
+        else:
+            return await html_to_markdown(html_content)
     
     def validate_input(self, content: bytes) -> bool:
         """Validate HTML input."""

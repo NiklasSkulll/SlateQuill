@@ -22,24 +22,25 @@ from .exceptions import SlateQuillError
 app = typer.Typer(
     name="SlateQuill",
     help="A robust Python CLI tool for converting HTML documents to clean, standards-compliant Markdown",
-    add_completion=False,
-    rich_markup_mode="rich"
+    add_completion=False
 )
 
 console = Console()
 
 
-def version_callback(value: bool) -> None:
+def version_callback(ctx: typer.Context, param: typer.CallbackParam, value: bool) -> None:
     """Show version information."""
-    if value:
-        console.print(f"SlateQuill version {__version__}")
-        raise typer.Exit()
+    if not value or ctx.resilient_parsing:
+        return
+    console.print(f"SlateQuill version {__version__}")
+    raise typer.Exit()
 
 
 @app.callback()
 def main(
-    version: Optional[bool] = typer.Option(
-        None,
+    ctx: typer.Context,
+    version: bool = typer.Option(
+        False,
         "--version",
         "-v",
         callback=version_callback,

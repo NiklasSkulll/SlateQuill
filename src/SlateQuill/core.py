@@ -84,7 +84,7 @@ async def convert_file(
     content_str = validate_input(content, input_path, config.security)
     
     # Convert to markdown
-    markdown_content = await converter.convert(content_str.encode('utf-8'), config.conversion.dict())
+    markdown_content = await converter.convert(content_str.encode('utf-8'), config.conversion)
     
     # Create output directory if it doesn't exist
     output_path.parent.mkdir(parents=True, exist_ok=True)

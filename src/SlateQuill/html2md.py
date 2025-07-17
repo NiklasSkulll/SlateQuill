@@ -41,6 +41,14 @@ async def html_to_markdown(
     if options is None:
         options = {}
     
+    # If options is passed instead of config, handle it
+    if isinstance(options, dict) and hasattr(config, 'preserve_html'):
+        # config is actually the config object, options might override it
+        pass
+    elif isinstance(config, dict):
+        # config was passed as dict, convert it
+        config = ConversionConfig(**config)
+    
     try:
         # Parse HTML with BeautifulSoup
         soup = BeautifulSoup(html_content, 'html.parser')
@@ -60,10 +68,7 @@ async def html_to_markdown(
             str(soup),
             heading_style=config.heading_style,
             bullets='-' if config.emphasis_style == 'asterisk' else '*',
-            strip=['script', 'style'] if not config.preserve_html else [],
-            convert=['p', 'br', 'strong', 'em', 'u', 'i', 'b', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6',
-                    'ul', 'ol', 'li', 'blockquote', 'pre', 'code', 'a', 'img', 'table', 'thead',
-                    'tbody', 'tr', 'th', 'td', 'div', 'span', 'hr']
+            strip=['script', 'style'] if not config.preserve_html else None,
         )
         
         # Clean whitespace if configured
