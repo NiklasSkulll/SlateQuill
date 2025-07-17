@@ -13,7 +13,9 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Python Support](https://img.shields.io/badge/Python-3.10%2B-blue)](https://www.python.org/downloads/)
+[![Poetry](https://img.shields.io/badge/Poetry-dependency%20management-blue)](https://python-poetry.org/)
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Linting: Ruff](https://img.shields.io/badge/linting-Ruff-red)](https://github.com/astral-sh/ruff)
 [![Development Status](https://img.shields.io/badge/status-in%20development-orange)](https://github.com/NiklasSkulll/SlateQuill)
 
 [Installation](#installation) • [Quick Start](#quick-start) • [Features](#features) • [Documentation](#documentation) • [Contributing](#contributing)
@@ -46,25 +48,47 @@ SlateQuill is a Python-based CLI tool that reliably transforms HTML documents in
 
 ## 📦 Installation
 
-### PyPI (Recommended)
+### Development Version (Current)
+
+Since SlateQuill is still in development and not yet published to PyPI, install from source:
+
+```bash
+# Clone the repository
+git clone https://github.com/NiklasSkulll/SlateQuill.git
+cd SlateQuill
+
+# Option 1: Using Poetry (Recommended)
+poetry install
+poetry shell
+SlateQuill input.html output.md
+
+# Option 2: Using pip in virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+pip install -e .
+SlateQuill input.html output.md
+```
+
+### Quick Test
+
+```bash
+# Test with included sample files
+SlateQuill tests/fixtures/test_input.html test_output.md
+```
+
+### PyPI (Coming Soon)
 
 ```bash
 pip install SlateQuill
 ```
 
-### Development Version
+### Other Package Managers (Planned)
 
 ```bash
-pip install git+https://github.com/NiklasSkulll/SlateQuill.git
-```
-
-### Other Package Managers
-
-```bash
-# Homebrew (macOS)
+# Homebrew (macOS) - planned
 brew install SlateQuill
 
-# Conda
+# Conda - planned
 conda install -c conda-forge SlateQuill
 ```
 
