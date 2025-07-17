@@ -22,6 +22,8 @@
 
 ---
 
+# SlateQuill
+
 ## 🚀 Overview
 
 SlateQuill is a Python-based CLI tool that reliably transforms HTML documents into clean, standards-compliant Markdown with full support for:
@@ -713,7 +715,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 <div align="center">
 
-**[⬆ Back to Top](#slateQuill)**
+**[⬆ Back to Top](#slatequill)**
 
 Made by [Niklas Skulll](https://github.com/NiklasSkulll)
 

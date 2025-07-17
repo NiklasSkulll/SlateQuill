@@ -1,0 +1,40 @@
+# CODEOWNERS file for SlateQuill
+# This file defines who owns which parts of the codebase
+# GitHub will automatically request reviews from these owners when PRs are opened
+
+# Global ownership - Niklas Skulll owns everything by default
+* @NiklasSkulll
+
+# Core package code
+/src/SlateQuill/ @NiklasSkulll
+
+# Configuration and project setup
+/pyproject.toml @NiklasSkulll
+/.pre-commit-config.yaml @NiklasSkulll
+/.gitignore @NiklasSkulll
+
+# Documentation
+/README.md @NiklasSkulll
+/CONTRIBUTING.md @NiklasSkulll
+/SECURITY.md @NiklasSkulll
+/CHANGELOG.md @NiklasSkulll
+/docs/ @NiklasSkulll
+
+# Tests - require review for test changes
+/tests/ @NiklasSkulll
+
+# Plugin system - critical for extensibility
+/src/SlateQuill/plugins/ @NiklasSkulll
+
+# Security-related files - require careful review
+/src/SlateQuill/security.py @NiklasSkulll
+/SECURITY.md @NiklasSkulll
+
+# CI/CD workflows (when added)
+/.github/ @NiklasSkulll
+
+# Configuration files
+/.slateQuill.toml.example @NiklasSkulll
+
+# License and legal
+/LICENSE @NiklasSkulll
